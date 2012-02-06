@@ -9,3 +9,6 @@ class DummyResource < OauthResource::Resource
   self.consumer_secret = DUMMY_CONSUMER_SECRET
 
 end
+
+class ChildResource < DummyResource
+end

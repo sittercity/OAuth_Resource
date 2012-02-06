@@ -3,20 +3,6 @@ require 'active_resource/exceptions'
 
 describe OauthResource::Resource do
 
-  context "custom ActiveResource-esque class configs" do
-
-    it "has a consumer key" do
-      DummyResource.consumer_key = DUMMY_CONSUMER_KEY
-      DummyResource.consumer_key.should == DUMMY_CONSUMER_KEY
-    end
-
-    it "has a consumer secret" do
-      DummyResource.consumer_secret = DUMMY_CONSUMER_SECRET
-      DummyResource.consumer_secret.should == DUMMY_CONSUMER_SECRET
-    end
-
-  end
-
   context "making an active resource request" do
 
     before(:all) do

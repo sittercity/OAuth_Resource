@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'active_resource/exceptions'
 
 describe OauthResource::Resource do
 
@@ -69,6 +70,20 @@ describe OauthResource::Resource do
         end
 
         DummyResource.find(1)
+      end
+
+    end
+
+    context "error handling" do
+
+      # ARes connection#handle_request handles all relevant http status codes. This test
+      # ensures that the response is correctly being handed off to ARes for error handling
+      it "uses ActiveResource::Connection#request for http error code handling" do
+        @stubs.post('/dummy_resources.json') do |env|
+          [401, { 'Location' => 'http://example.com/dummy_resources/1' },
+                {:dummy_resource => {:id => 1, :active => '1' }}.to_json]
+        end
+        lambda { DummyResource.create(:active => 1) }.should raise_exception(ActiveResource::UnauthorizedAccess)
       end
 
     end

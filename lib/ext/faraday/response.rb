@@ -1,5 +1,6 @@
 # Please see LICENSE.txt for copyright and license information.
 
+# The Faraday Response Class
 module Faraday
   class Response
 

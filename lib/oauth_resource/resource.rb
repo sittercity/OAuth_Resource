@@ -1,3 +1,5 @@
+# Please see LICENSE.txt for copyright and license information.
+
 module OauthResource
   class Resource < ::ActiveResource::Base
 

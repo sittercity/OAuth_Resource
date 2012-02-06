@@ -1,3 +1,5 @@
+# Please see LICENSE.txt for copyright and license information.
+
 require 'faraday'
 require 'simple_oauth'
 require 'faraday_middleware'

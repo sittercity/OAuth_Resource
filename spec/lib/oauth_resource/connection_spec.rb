@@ -64,14 +64,28 @@ describe OauthResource::Resource do
 
       # ARes connection#handle_request handles all relevant http status codes. This test
       # ensures that the response is correctly being handed off to ARes for error handling
-      it "uses ActiveResource::Connection#request for http error code handling" do
-        @stubs.post('/dummy_resources.json') do |env|
-          [401, { 'Location' => 'http://example.com/dummy_resources/1' },
-                {:dummy_resource => {:id => 1, :active => '1' }}.to_json]
+
+      context "typical ARes POS" do
+
+        it "uses ActiveResource::Connection#request for http error code handling" do
+          @stubs.post('/dummy_resources.json') do |env|
+            [401, {}, "Unauthorized"]
+          end
+          lambda { DummyResource.create(:active => 1) }.should raise_exception(ActiveResource::UnauthorizedAccess)
         end
-        lambda { DummyResource.create(:active => 1) }.should raise_exception(ActiveResource::UnauthorizedAccess)
+
       end
 
+      context "typical ARes GET" do
+
+        it "uses ActiveResource::Connection#request for http error code handling" do
+          @stubs.get('/dummy_resources/2.json') do |env|
+            [404, {}, "Not found"]
+          end
+          lambda { DummyResource.find(2) }.should raise_exception(ActiveResource::ResourceNotFound)
+        end
+
+      end
     end
   end
 end

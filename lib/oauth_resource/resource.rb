@@ -42,21 +42,5 @@ module OauthResource
       end
     end
 
-    protected
-
-    # This method is necessary since we're using faraday responses instead
-    # of net/http responses. Faraday responses respond to #status, whereas net/http
-    # responses respond to #code.
-    #
-    def load_attributes_from_response(response)
-      if (response_code_allows_body?(response.status) &&
-         (response['Content-Length'].nil? || response['Content-Length'] != "0") &&
-         !response.body.nil? && response.body.strip.size > 0)
-
-        load(self.class.format.decode(response.body), true)
-        @persisted = true
-      end
-    end
-
   end
 end

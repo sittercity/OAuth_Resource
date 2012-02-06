@@ -26,23 +26,23 @@ module OauthResource
     end
 
     def get(path, headers = {})
-      http.get(path, {}, http_format_header(:get).merge(headers))
+      request(:get, path, {}, http_format_header(:get).merge(headers))
     end
 
     def delete(path, headers = {})
-      http.delete(path, {}, http_format_header(:delete).merge(headers))
+      request(:delete, path, {}, http_format_header(:delete).merge(headers))
     end
 
     def put(path, body = '', headers = {})
-      http.put(path, body, http_format_header(:put).merge(headers))
+      request(:put, path, body, http_format_header(:put).merge(headers))
     end
 
     def post(path, body = '', headers = {})
-      http.post(path, body, http_format_header(:post).merge(headers))
+      request(:post, path, body, http_format_header(:post).merge(headers))
     end
 
     def head(path, headers = {})
-      http.head(path, {}, http_format_header(:head).merge(headers))
+      request(:head, path, {}, http_format_header(:head).merge(headers))
     end
 
   end
